@@ -5,8 +5,8 @@
 **Version**: 1.0.0 (increment the patch/fix version number if you make more commits past your first submission)
 
 ## Overview
-<!-- Provide a high level overview of what this application is and why you are building it, beyond the fact that it's an assignment for this class. (i.e. What's your problem domain?) -->
-project description goes here.
+
+Application is built to render books to user that user is interested in reading, or in progress of reading, or has completed reading.
 
 ## Getting Started
 
