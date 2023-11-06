@@ -52,19 +52,33 @@ Any environment configuration steps.
 
 ## Change Log
 
+### 11-7-2023 301 - Lab 11
+
+11-4-2023 10:00am - Application can render books, images, and styling
+
+Name of feature: Render images from database with book images
+
+Estimate of time needed to complete: 2 hours
+
+Start time: 9:00 am
+
+Finish time: 10:00 am
+
+Actual time needed to complete: 1 hours
+
 ### 11-4-2023 301 - Lab 11
 
-01-01-2001 4:59pm - Application now has a fully-functional express server, with a GET route for the location resource. -->
+11-4-2023 1:00pm - Application can render data and images in carousel format
 
-Name of feature: ________________________________
+Name of feature: Render images in carousel format from server
 
-Estimate of time needed to complete: _____
+Estimate of time needed to complete: 2 hours
 
-Start time: _____
+Start time: 10:00 am
 
-Finish time: _____
+Finish time: 1:00 pm
 
-Actual time needed to complete: _____
+Actual time needed to complete: 3 hours
 
 ## Collaborators
 
