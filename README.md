@@ -50,6 +50,12 @@ Any environment configuration steps.
 
 ### Languages & tools
 
+    JavaScript, CSS, Axios, React, React-Bootstrap
+
+### Lighthouse Scores
+
+LightHouse Score 11-07-2023 ![Lighthouse](img/Lighthouse11-07-2023.png)
+
 ## Change Log
 
 ### 11-7-2023 301 - Lab 11
