@@ -3,6 +3,8 @@ import React from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 import './App.css';
 
+const SERVER = import.meta.env.VITE_SERVER;
+
 class BestBooks extends React.Component {
   constructor(props) {
     super(props);
@@ -13,7 +15,7 @@ class BestBooks extends React.Component {
 
   /* TODO: Make a GET request to your API to fetch all the books from the database  */
   componentDidMount() {
-    axios.get('http://localhost:3001/books')
+    axios.get(`${SERVER}/books`)
       .then(res => this.setState( {books: res.data} ) )
   }
 
