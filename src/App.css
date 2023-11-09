@@ -1,0 +1,29 @@
+.carousel-item img {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  max-height: 25vw; 
+}
+
+.carousel-item {
+  padding-bottom: 16vw;
+  padding-top: 3vw;
+}
+
+.nav-links {
+  color: white;
+  margin-right: 1%;
+  transition: color 100ms; 
+}
+
+.nav-links:hover {
+  color: lightblue; 
+}
+
+h2 {
+  text-align: center;
+}
+
+.nav-bar-brand {
+  margin-left: 1%;
+}
