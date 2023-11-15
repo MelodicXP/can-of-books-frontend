@@ -12,21 +12,34 @@ import {
 } from "react-router-dom";
 
 class App extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      showModal: false, // Set state of modal visiblity
+    };
+  }
+
+  // Toggle modal visibility (pass into Header and BestBooks)
+  toggleModal = () => {
+    this.setState(prevState => ({ showModal: !prevState.showModal }));
+  }
+
+
   render() {
     return (
       <>
         <Router>
-          <Header />
+          <Header onAddBookClick={this.toggleModal} />
           <Routes>
             <Route 
               exact path="/"
-              element={<BestBooks />}
+              element={<BestBooks showModal={this.state.showModal} toggleModal={this.toggleModal} />}
             />
             <Route
               exact path="/about"
               element={<About />}
             />
-            {/* PLACEHOLDER: add a route with a path of '/about' that renders the `About` component */}
           </Routes>
           <Footer />
         </Router>
