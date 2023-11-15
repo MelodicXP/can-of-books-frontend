@@ -3,11 +3,13 @@
   margin: 0 auto;
   max-width: 100%;
   max-height: 25vw; 
+  margin-bottom: 7vw;
 }
 
 .carousel-item {
   padding-bottom: 16vw;
   padding-top: 3vw;
+  /* border: 3px solid blue; */
 }
 
 .nav-links {
@@ -18,6 +20,7 @@
 
 .nav-links:hover {
   color: lightblue; 
+  cursor: pointer;
 }
 
 h2 {
@@ -26,4 +29,18 @@ h2 {
 
 .nav-bar-brand {
   margin-left: 1%;
+}
+
+.error-message {
+  color: red;
+  font-size: 1.5vw;
+  font-weight: bold;
+  text-align: center;
+}
+
+.success-message {
+  color: green;
+  font-size: 1.5vw;
+  font-weight: bold;
+  text-align: center;
 }

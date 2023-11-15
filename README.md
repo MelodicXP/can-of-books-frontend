@@ -58,6 +58,34 @@ LightHouse Score 11-07-2023 ![Lighthouse](img/Lighthouse11-07-2023.png)
 
 ## Change Log
 
+### 11-15-2023 301 - Lab 12
+
+11-15-2023 8:00am - Add modal to display form
+
+Name of feature: Add modal to display form
+
+Estimate of time needed to complete: 2 hours
+
+Start time: 8:00 am
+
+Finish time: 10:00 am
+
+Actual time needed to complete: 2 hours
+
+### 11-14-2023 301 - Lab 12
+
+11-14-2023 10:00am - Application can delete and add books to database
+
+Name of feature: Render images from database with book images
+
+Estimate of time needed to complete: 2 hours
+
+Start time: 10:00 am
+
+Finish time: 12:00 pm
+
+Actual time needed to complete: 1 hours
+
 ### 11-7-2023 301 - Lab 11
 
 11-4-2023 10:00am - Application can render books, images, and styling
