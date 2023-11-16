@@ -44,3 +44,7 @@ h2 {
   font-weight: bold;
   text-align: center;
 }
+
+.update-button {
+  margin-right: 1vw;
+}
