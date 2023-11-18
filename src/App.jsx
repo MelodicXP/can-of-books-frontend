@@ -17,12 +17,18 @@ class App extends React.Component {
     super(props);
     this.state = {
       showModal: false, // Set state of modal visiblity
+      showUpdateModal: false, // Set state of update modal visiblity
     };
   }
 
   // Toggle modal visibility (pass into Header and BestBooks)
   toggleModal = () => {
     this.setState(prevState => ({ showModal: !prevState.showModal }));
+  }
+
+  // Toggle update modal visibility (pass into BestBooks, each books has update book button tied to a modal)
+  toggleUpdateModal = () => {
+    this.setState(prevState => ({ showUpdateModal: !prevState.showUpdateModal }));
   }
 
 
@@ -34,7 +40,12 @@ class App extends React.Component {
           <Routes>
             <Route 
               exact path="/"
-              element={<BestBooks showModal={this.state.showModal} toggleModal={this.toggleModal} />}
+              element={<BestBooks 
+                showModal={this.state.showModal} 
+                toggleModal={this.toggleModal}
+                showUpdateModal={this.state.showUpdateModal}
+                toggleUpdateModal={this.toggleUpdateModal}
+                />}
             />
             <Route
               exact path="/about"

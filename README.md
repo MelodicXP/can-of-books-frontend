@@ -58,6 +58,20 @@ LightHouse Score 11-07-2023 ![Lighthouse](img/Lighthouse11-07-2023.png)
 
 ## Change Log
 
+### 11-16-2023 301 - Lab 13
+
+11-16-2023 8:00am - Add update button that opens modal
+
+Name of feature: Add modal to display from update button
+
+Estimate of time needed to complete: 2 hours
+
+Start time: 8:00 am
+
+Finish time: 10:00 am
+
+Actual time needed to complete: 2 hours
+
 ### 11-15-2023 301 - Lab 12
 
 11-15-2023 8:00am - Add modal to display form

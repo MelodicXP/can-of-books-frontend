@@ -4,6 +4,7 @@ import { Carousel, Button, Modal, Spinner } from 'react-bootstrap';
 import './App.css';
 import './AddBookFormModal';
 import AddBookForm from './AddBookFormModal';
+import UpdateBookForm from './UpdateBookFormModal';
 const SERVER = import.meta.env.VITE_SERVER;
 
 class BestBooks extends React.Component {
@@ -12,11 +13,18 @@ class BestBooks extends React.Component {
     this.state = {
       books: [],
       error: null, // Error state for fetching books (if unsuccessful)
+
       postError: null, // Error state for posting books (if unsuccessful)
+      postSuccess: null, // Success state for posting books (if successful)
+
       deleteError: null, // Error state for deleting books (if unsuccessful)
       deletingBookId: null, // Keep track of which book is being deleted, used to show spinner and disable delete button
-      postSuccess: null, // Success state for posting books (if successful)
       deleteSuccess: null, // Success state for deleting books (if successful)
+
+      bookToUpdate: {}, // Empty object to hold data of book to be updated
+
+      updateError: null, // Error state for updating books (if unsuccessful)
+      updateSuccess: null, // Success state for updating books (if successful)
     }
   }
 
@@ -50,6 +58,29 @@ class BestBooks extends React.Component {
       });
   }
 
+  // Update book in database
+  updateBook = (bookToUpdate) => {
+    const url = `${SERVER}/books/${bookToUpdate._id}`;
+    axios.put(url, bookToUpdate)
+      .then(() => {
+        const updatedBooks = this.state.books.map(oldBook => oldBook._id === bookToUpdate._id ? bookToUpdate : oldBook);
+        this.setState({
+          books: updatedBooks,
+          updateError: null,
+          updatingBookId: null,
+          updateSuccess: 'Books has been successfully updated!',
+        });
+      })
+      .catch(error => {
+        console.error("Error updating the book:", error);
+        this.setState({  // Set error message, reset states to null
+          updateError: 'Failed to update the book. Please try again.', 
+          updatingBookId: null, 
+          updateSuccess: null,
+         }); 
+      });
+    }
+
   // Delete book from databse
   deleteBook = (id) => {
     this.setState({ deletingBookId: id }); // Indicate which book being deleted
@@ -75,6 +106,13 @@ class BestBooks extends React.Component {
       });
   }
 
+    // Handle update button clicks
+    handleUpdateClick = (book) => {
+      this.props.toggleUpdateModal(); // First action, update state of modal to show
+      this.setState({bookToUpdate: book}); // Second action, set state of book to update with data from existing book
+    };
+
+
   render() {
 
     return (
@@ -86,15 +124,36 @@ class BestBooks extends React.Component {
             <Modal.Title>Add a New Book</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <AddBookForm postBook={this.postBook} onClose={this.props.toggleModal}/>
+            <AddBookForm 
+            postBook={this.postBook} 
+            onClose={this.props.toggleModal}/>
           </Modal.Body>
         </Modal>
 
+        <Modal show={this.props.showUpdateModal} onHide={this.props.toggleUpdateModal}>
+          <Modal.Header closeButton>
+            <Modal.Title>Update Book</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <UpdateBookForm 
+            updateBook={this.updateBook} 
+            onClose={this.props.toggleUpdateModal}
+            bookToUpdate={this.state.bookToUpdate}
+            />
+          </Modal.Body>
+        </Modal>
+
+
         {this.state.error && <p className="error-message">Error: {this.state.error}</p>}
+        
         {this.state.deleteError && <p className="error-message">{this.state.deleteError}</p>}
-        {this.state.postError && <p className="error-message">{this.state.postError}</p>}
         {this.state.deleteSuccess && <p className="success-message">{this.state.deleteSuccess}</p>}
+
         {this.state.postSuccess && <p className="success-message">{this.state.postSuccess}</p>}
+        {this.state.postError && <p className="error-message">{this.state.postError}</p>}
+
+        {this.state.updateSuccess && <p className="success-message">{this.state.updateSuccess}</p>}
+        {this.state.updateError && <p className="error-message">{this.state.updateError}</p>}
 
         {this.state.books.length > 0 ? (
 
@@ -111,6 +170,14 @@ class BestBooks extends React.Component {
                   <h3>{book.title}</h3>
                   <p>{book.description} <br /></p>
                   <p>{`Status: ${book.status}`}</p>
+
+                  <Button 
+                    className='update-button' 
+                    variant="secondary" 
+                    onClick={() => this.handleUpdateClick(book)}
+                  >
+                     Update Book
+                  </Button>
                   
                   <Button 
                     className='delete-button' 
