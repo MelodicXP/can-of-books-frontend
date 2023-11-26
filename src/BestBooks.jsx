@@ -5,6 +5,8 @@ import './App.css';
 import './AddBookFormModal';
 import AddBookForm from './AddBookFormModal';
 import UpdateBookForm from './UpdateBookFormModal';
+import { withAuth0 } from '@auth0/auth0-react';
+
 const SERVER = import.meta.env.VITE_SERVER;
 
 class BestBooks extends React.Component {
@@ -28,82 +30,149 @@ class BestBooks extends React.Component {
     }
   }
 
+  // Mount books
+  async componentDidMount () {
+    this.getBooks();
+  }
+
+  // Get token from user info, to send along to back-end for verification of Auth0
+  getToken = () => {
+    return this.props.auth0.getIdTokenClaims() // getIdTokenClaims is a method of Auth0 to get user token
+      // .then(response => console.log(response)) --> do console.log to confirm data needed coming through (need ._raw which contains token)
+      .then(response => response.__raw) // <--- Remember to use two underscores!
+      .catch(err => console.error(err))
+  }
+
   // Make a GET request to your API to fetch all the books from the database 
-  componentDidMount() {
-    axios.get(`${SERVER}/books`)
-      .then(res => this.setState( {books: res.data} ) )
-      .catch(error => {
-        // Handle error
-        this.setState({ error: error.message });
-        console.error("Error fetching the books:", error);
-      });
+  getBooks = () => {
+
+    // this.getToken(); ---> invoke function to test if able to retrieve user data along with token
+    
+    // Assign token to jwt via getToken function
+    this.getToken()
+    .then(jwt => {
+      // Assign jwt (contains token) to headers
+      const config = {
+        headers: { 'Authorization': `Bearer ${jwt}` }
+      };
+
+      console.log(config);
+      // Pass book request along with config, allows backend to validate user auth prior to sending books data back
+      return axios.get(`${SERVER}/books`, config);
+    })
+    .then(res => this.setState({ books: res.data }))
+    .catch(error => {
+      // Handle errors from either getToken or axios.get
+      console.error("Error in getBooks:", error);
+      this.setState({ error: error.message });
+    });
   }
 
   // Post new book to database
-  postBook = (newBook) => {
-    const url = `${SERVER}/books`
-    axios.post(url, newBook)
-      .then(response => this.setState({
-        books: [...this.state.books, response.data], // Add new data to books state (books: []), in order to be able to render
-        postError: null, // Clear any previous errors
-        postSuccess: 'Book has been added successfully!', // Success message state
-      }))
+  postBook = async (newBook) => {
+    const url = `${SERVER}/books`;
+
+    this.getToken()
+      .then(jwt => {
+        // Assign jwt (contains token) to headers
+        const config = {
+          headers: { 'Authorization': `Bearer ${jwt}` }
+        };
+
+        // Perform the POST request with axios
+        return axios.post(url, newBook, config);
+      })
+      .then(response => {
+        // Handle successful response
+        this.setState({
+          books: [...this.state.books, response.data], // Add new data to books state
+          postError: null, // Clear any previous errors
+          postSuccess: 'Book has been added successfully!' // Success message state
+        });
+      })
       .catch(error => {
-        // Handle POST error here and update state
+        // Handle any errors from either getToken or axios.post
+        console.error("Error posting the book:", error);
         this.setState({ 
           postError: 'Failed to add the book. Please try again.',
           postSuccess: null,
-         });
-        console.error("Error posting the book:", error);
+        });
       });
   }
 
   // Update book in database
   updateBook = (bookToUpdate) => {
+
     const url = `${SERVER}/books/${bookToUpdate._id}`;
-    axios.put(url, bookToUpdate)
-      .then(() => {
-        const updatedBooks = this.state.books.map(oldBook => oldBook._id === bookToUpdate._id ? bookToUpdate : oldBook);
-        this.setState({
-          books: updatedBooks,
-          updateError: null,
-          updatingBookId: null,
-          updateSuccess: 'Books has been successfully updated!',
-        });
-      })
-      .catch(error => {
-        console.error("Error updating the book:", error);
-        this.setState({  // Set error message, reset states to null
-          updateError: 'Failed to update the book. Please try again.', 
-          updatingBookId: null, 
-          updateSuccess: null,
-         }); 
+
+    this.getToken()
+    .then(jwt => {
+      // Assign jwt (contains token) to headers
+      const config = {
+        headers: { 'Authorization': `Bearer ${jwt}` }
+      };
+
+      // Perform PUT request with axios
+      return axios.put(url, bookToUpdate, config);
+    })
+    .then(() => {
+      // Update state with updated book
+      const updatedBooks = this.state.books.map(oldBook => 
+        oldBook._id === bookToUpdate._id ? bookToUpdate : oldBook
+      );
+      this.setState({
+        books: updatedBooks,
+        updateError: null,
+        updatingBookId: null,
+        updateSuccess: 'Books has been successfully updated!',
       });
-    }
+    })
+    .catch(error => {
+      // Handle any errors from either getToken or axios.put
+      console.error("Error updating the book:", error);
+      this.setState({ 
+        updateError: 'Failed to update the book. Please try again.', 
+        updatingBookId: null, 
+        updateSuccess: null,
+      }); 
+    });
+  }
 
   // Delete book from databse
   deleteBook = (id) => {
     this.setState({ deletingBookId: id }); // Indicate which book being deleted
 
     const url = `${SERVER}/books/${id}`;
-    axios.delete(url)
-      .then(() => {
-        const updatedBooks = this.state.books.filter(book => book._id !== id); // Return books array minus deleted book
-        this.setState({ // Update books, and reset states to null, set success message
-          books: updatedBooks, 
-          deleteError: null, 
-          deletingBookId: null,
-          deleteSuccess: 'Book has been removed successfully!',
-         });
-      })
-      .catch(error => {
-        console.error("Error deleting the book:", error);
-        this.setState({  // Set error message, reset states to null
-          deleteError: 'Failed to delete the book. Please try again.', 
-          deletingBookId: null, 
-          deleteSuccess: null,
-         }); 
+
+    this.getToken()
+    .then(jwt => {
+      // Assign jwt (contains token) to headers
+      const config = {
+        headers: { 'Authorization': `Bearer ${jwt}` }
+      };
+
+      // Perform DELETE request with axios
+      return axios.delete(url, config);
+    })
+    .then(() => {
+      // Update state to remove the deleted book
+      const updatedBooks = this.state.books.filter(book => book._id !== id);
+      this.setState({ 
+        books: updatedBooks, 
+        deleteError: null, 
+        deletingBookId: null,
+        deleteSuccess: 'Book has been removed successfully!',
       });
+    })
+    .catch(error => {
+      // Handle any errors from either getToken or axios.delete
+      console.error("Error deleting the book:", error);
+      this.setState({ 
+        deleteError: 'Failed to delete the book. Please try again.', 
+        deletingBookId: null, 
+        deleteSuccess: null,
+      }); 
+    });
   }
 
     // Handle update button clicks
@@ -202,4 +271,4 @@ class BestBooks extends React.Component {
   }
 }
 
-export default BestBooks;
+export default withAuth0(BestBooks);

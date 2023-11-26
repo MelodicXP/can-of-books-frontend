@@ -16,6 +16,9 @@
   color: white;
   margin-right: 1%;
   transition: color 100ms; 
+  width: max-content;
+  /* border: 3px solid red; */
+  text-align: center;
 }
 
 .nav-links:hover {
@@ -47,4 +50,27 @@ h2 {
 
 .update-button {
   margin-right: 1vw;
+}
+
+.loginLogout-button {
+  width: 25%;
+  margin-right: 2%;
+}
+
+h2 {
+  text-align: left;
+}
+
+#login-message {
+  color: red;
+  font-weight: bold;
+  font-size: 2vw;
+  text-align: center;
+  margin-top: 1vw;
+}
+
+#add-book-button {
+  /* border: 3px solid red; */
+  width: 100%;
+  margin-right: 28%;
 }
