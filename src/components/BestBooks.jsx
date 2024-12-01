@@ -1,8 +1,45 @@
 'use strict';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Link
+} from "react-router-dom";
+
+const SERVER = import.meta.env.VITE_SERVER;
 
 const BestBooks = () => {
+  const [books, setBooks] = useState([]);
+
+  useEffect(() => {
+    fetchBooks();
+  }, []);
+
+  async function fetchBooks(book = null) {
+    let apiUrl = `${SERVER}/books`;
+
+    if (book) {
+      apiUrl += `?book=${book}`;
+    }
+
+    try {
+      const response = await axios.get(apiUrl);
+      setBooks(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   return (
-    <p>Best Books componenet here</p>
+    <>
+      {books.length && books.map((book, index) => (
+        <div key={index}>
+          {book.title} 
+        </div>
+      ))}
+    </>
   );
 };
 
