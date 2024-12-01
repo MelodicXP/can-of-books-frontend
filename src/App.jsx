@@ -1,10 +1,11 @@
 'use strict';
+import BestBooks from "./components/BestBooks";
 
 const App = () => {
   return(
-    <p>This is the app</p>
+    <BestBooks />
   );
-}
+};
 
 export default App;
 // import React from 'react';
