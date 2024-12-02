@@ -1,4 +1,3 @@
-'use strict';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import {
@@ -7,6 +6,7 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import Books from './Books';
 
 const SERVER = import.meta.env.VITE_SERVER;
 
@@ -26,7 +26,8 @@ const BestBooks = () => {
 
     try {
       const response = await axios.get(apiUrl);
-      setBooks(response.data);
+      const bookData = response.data;
+      setBooks(bookData);
     } catch (error) {
       console.error(error);
     }
@@ -34,11 +35,7 @@ const BestBooks = () => {
 
   return (
     <>
-      {books.length && books.map((book, index) => (
-        <div key={index}>
-          {book.title} 
-        </div>
-      ))}
+      <Books books={books}/>
     </>
   );
 };
