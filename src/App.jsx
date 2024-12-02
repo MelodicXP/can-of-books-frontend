@@ -1,4 +1,3 @@
-'use strict';
 import BestBooks from "./components/BestBooks";
 
 const App = () => {
