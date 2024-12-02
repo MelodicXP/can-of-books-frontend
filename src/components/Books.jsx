@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import Book from './Book';
 
 const Books = (props) => {
   const { books } = props;
@@ -9,15 +10,13 @@ const Books = (props) => {
     return <p>No books to display</p>;
   }
 
-  return (
-    <>
-      {books.length && books.map((book, index) => (
-        <div key={index}>
-          {book.title}
-        </div>
-      ))}
-    </>
-  );
+    return (
+      <>
+        {books.map((book) => (
+          <Book book={book} key={book._id}/>
+        ))}
+      </>
+    );
 };
 
 Books.propTypes = {
