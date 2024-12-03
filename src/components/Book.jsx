@@ -1,12 +1,17 @@
 import PropTypes from 'prop-types';
+import Carousel from 'react-bootstrap/Carousel';
 
 const Book = (props) => {
   const { book } = props;
 
   return (
-    <div>
-      {book.title}
-    </div>
+    <>
+      <img src={book.imageUrl} alt={book.title} />
+      <Carousel.Caption>
+        <h3>{book.title}</h3>
+        <p>{book.description}</p>
+      </Carousel.Caption>
+    </>
   );
 };
 

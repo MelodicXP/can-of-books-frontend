@@ -17,14 +17,7 @@ const Books = (props) => {
       <Carousel data-bs-theme="dark">
         {books.map((book) => (
           <Carousel.Item key={book._id}>
-            <img
-              src={book.imageUrl}
-              alt={book.title}
-            />
-            <Carousel.Caption>
-              <h3>{book.title}</h3>
-              <p>{book.description}</p>
-            </Carousel.Caption>
+            <Book book={book} />
           </Carousel.Item>
         ))}
       </Carousel>
