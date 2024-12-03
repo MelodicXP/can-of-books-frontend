@@ -10,13 +10,14 @@ const Books = (props) => {
     return <p>No books to display</p>;
   }
 
-    return (
-      <>
-        {books.map((book) => (
-          <Book book={book} key={book._id}/>
-        ))}
-      </>
-    );
+  // Todo - Work on carousel
+  return (
+    <>
+      {books.map((book) => (
+        <Book book={book} key={book._id}/>
+      ))}
+    </>
+  );
 };
 
 Books.propTypes = {
