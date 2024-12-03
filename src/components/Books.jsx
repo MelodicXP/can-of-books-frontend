@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import Carousel from 'react-bootstrap/Carousel';
 import Book from './Book';
 
 const Books = (props) => {
@@ -13,9 +14,20 @@ const Books = (props) => {
   // Todo - Work on carousel
   return (
     <>
-      {books.map((book) => (
-        <Book book={book} key={book._id}/>
-      ))}
+      <Carousel data-bs-theme="dark">
+        {books.map((book) => (
+          <Carousel.Item key={book._id}>
+            <img
+              src={book.imageUrl}
+              alt={book.title}
+            />
+            <Carousel.Caption>
+              <h3>{book.title}</h3>
+              <p>{book.description}</p>
+            </Carousel.Caption>
+          </Carousel.Item>
+        ))}
+      </Carousel>
     </>
   );
 };
