@@ -1,11 +1,5 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Link
-} from "react-router-dom";
 import Books from './Books';
 
 const SERVER = import.meta.env.VITE_SERVER;

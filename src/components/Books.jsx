@@ -11,7 +11,6 @@ const Books = (props) => {
     return <p>No books to display</p>;
   }
 
-  // Todo - Work on carousel
   return (
     <>
       <Carousel data-bs-theme="dark">

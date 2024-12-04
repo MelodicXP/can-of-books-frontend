@@ -1,9 +1,29 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import BestBooks from "./components/BestBooks";
+import About from './components/About';
+import BestBooks from './components/BestBooks';
+import NavBar from './components/NavBar';
+import {
+  BrowserRouter,
+  Routes,
+  Route
+} from "react-router-dom";
 
 const App = () => {
-  return(
-    <BestBooks />
+  return (
+    <>
+      <BrowserRouter>
+        <NavBar />
+
+        <Routes>
+          <Route exact path="/" element={
+            <BestBooks />
+          }/>
+          <Route exact path="/about" element={
+            <About />
+          }/>
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 };
 
