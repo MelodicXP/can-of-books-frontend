@@ -1,3 +1,8 @@
+.books-container {
+  display: flex;
+  flex-direction: column;
+}
+
 .carousel-item img {
   display: block;
   margin: 0 auto;
@@ -9,32 +14,14 @@
 .carousel-item {
   padding-bottom: 16vw;
   padding-top: 3vw;
-  /* border: 3px solid blue; */
 }
 
-.nav-links {
-  color: white;
-  margin-right: 1%;
-  transition: color 100ms; 
-  width: max-content;
-  /* border: 3px solid red; */
-  text-align: center;
+.add-book-button {
+  margin: 0 auto;
+  width: 25vw;
 }
 
-.nav-links:hover {
-  color: lightblue; 
-  cursor: pointer;
-}
-
-h2 {
-  text-align: center;
-}
-
-.nav-bar-brand {
-  margin-left: 1%;
-}
-
-.error-message {
+/* .error-message {
   color: red;
   font-size: 1.5vw;
   font-weight: bold;
@@ -57,20 +44,12 @@ h2 {
   margin-right: 2%;
 }
 
-h2 {
-  text-align: left;
-}
-
 #login-message {
   color: red;
   font-weight: bold;
   font-size: 2vw;
   text-align: center;
   margin-top: 1vw;
-}
+} */
 
-#add-book-button {
-  /* border: 3px solid red; */
-  width: 100%;
-  margin-right: 28%;
-}
+

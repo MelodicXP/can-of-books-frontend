@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import Button from 'react-bootstrap/Button';
 import Books from './Books';
 
 const SERVER = import.meta.env.VITE_SERVER;
@@ -28,9 +29,16 @@ const BestBooks = () => {
   }
 
   return (
-    <>
+    <div className='books-container'>
       <Books books={books}/>
-    </>
+      <Button
+        className='add-book-button' 
+        variant="primary" 
+        // todo onClick={openAddBookModal}
+      >
+        Add Book
+      </Button>
+    </div>
   );
 };
 
